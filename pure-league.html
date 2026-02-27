@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PURE LEAGUE | 사커캠프 아마추어 리그</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green:#00C853; --dark:#0A0A0A; --surface:#141414;
+      --border:#2A2A2A; --text:#F0F0F0; --muted:#888;
+      --yellow:#FFD600; --red:#E53935;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--dark);color:var(--text);font-family:'Noto Sans KR',sans-serif;line-height:1.6;}
+    a{color:inherit;text-decoration:none;}
+
+    /* 네비 */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 40px;height:64px;display:flex;align-items:center;transition:all .3s ease;}
+    .nav.scrolled{background:rgba(10,10,10,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+    .nav__inner{max-width:1200px;margin:0 auto;width:100%;display:flex;align-items:center;justify-content:space-between;}
+    .nav__logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.1em;color:#fff;}
+    .nav__logo span{color:var(--green);}
+    .nav__links{display:flex;gap:32px;list-style:none;align-items:center;}
+    .nav__links a{font-size:.88rem;font-weight:600;color:var(--muted);letter-spacing:.04em;transition:color .2s;}
+    .nav__links a:hover,.nav__links a.active{color:#fff;}
+    .nav__cta{background:var(--green)!important;color:#000!important;padding:8px 20px!important;border-radius:8px;font-weight:800!important;}
+    .nav__burger{display:none;background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;}
+
+    /* 페이지 헤더 */
+    .page-header{
+      padding:120px 40px 60px;
+      background:linear-gradient(180deg,rgba(0,200,83,.08) 0%,transparent 100%);
+      border-bottom:1px solid var(--border);
+    }
+    .page-header__inner{max-width:1200px;margin:0 auto;}
+    .page-header__badge{
+      display:inline-block;
+      background:rgba(0,200,83,.12);border:1px solid rgba(0,200,83,.3);
+      color:var(--green);font-size:.72rem;font-weight:700;
+      letter-spacing:.14em;padding:6px 16px;border-radius:999px;margin-bottom:16px;
+    }
+    .page-header__title{
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(3rem,7vw,5.5rem);
+      letter-spacing:.04em;color:#fff;margin-bottom:8px;
+    }
+    .page-header__sub{color:var(--muted);font-size:.9rem;}
+
+    /* 탭 */
+    .tabs{border-bottom:1px solid var(--border);padding:0 40px;}
+    .tabs__inner{max-width:1200px;margin:0 auto;display:flex;gap:4px;}
+    .tab{
+      padding:16px 28px;background:transparent;
+      border:none;border-bottom:3px solid transparent;
+      color:var(--muted);font-weight:700;font-size:.9rem;
+      cursor:pointer;transition:all .2s;letter-spacing:.04em;
+      font-family:'Noto Sans KR',sans-serif;
+    }
+    .tab.active,.tab:hover{color:var(--green);border-bottom-color:var(--green);}
+
+    /* 컨텐츠 영역 */
+    .content{max-width:1200px;margin:0 auto;padding:48px 40px;}
+
+    /* 로딩 */
+    .loading{text-align:center;padding:80px 0;color:var(--muted);}
+    .spinner{
+      width:40px;height:40px;
+      border:3px solid var(--border);border-top-color:var(--green);
+      border-radius:50%;animation:spin .8s linear infinite;
+      margin:0 auto 16px;
+    }
+    @keyframes spin{to{transform:rotate(360deg);}}
+
+    /* 순위표 */
+    .table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border);}
+    .standings-table{width:100%;border-collapse:collapse;font-size:.88rem;}
+    .standings-table thead tr{background:#1A1A1A;border-bottom:2px solid var(--green);}
+    .standings-table th{
+      padding:14px 16px;text-align:center;
+      font-size:.68rem;font-weight:700;color:var(--muted);
+      letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;
+    }
+    .standings-table th:nth-child(2){text-align:left;}
+    .standings-table td{padding:16px;text-align:center;border-bottom:1px solid #1A1A1A;vertical-align:middle;}
+    .standings-table td:nth-child(2){text-align:left;}
+    .standings-table tbody tr{transition:background .15s;}
+    .standings-table tbody tr:hover{background:rgba(0,200,83,.05);}
+    .standings-table tbody tr:last-child td{border-bottom:none;}
+
+    /* 순위 번호 */
+    .rank{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;}
+    .rank--1{color:var(--yellow);}
+    .rank--2{color:#C0C0C0;}
+    .rank--3{color:#CD7F32;}
+
+    /* 팀 셀 */
+    .team-cell{display:flex;align-items:center;gap:12px;}
+    .team-logo{
+      width:36px;height:36px;border-radius:50%;
+      background:var(--border);display:flex;
+      align-items:center;justify-content:center;
+      font-size:1.1rem;flex-shrink:0;overflow:hidden;
+    }
+    .team-logo img{width:100%;height:100%;object-fit:cover;}
+    .team-name{font-weight:700;font-size:.92rem;}
+
+    /* 승점 */
+    .pts{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--green);}
+
+    /* GD 색상 */
+    .gd-pos{color:var(--green);}
+    .gd-neg{color:var(--red);}
+
+    /* 최근 폼 */
+    .form{display:flex;gap:4px;justify-content:center;}
+    .form-dot{
+      width:22px;height:22px;border-radius:5px;
+      font-size:.62rem;font-weight:800;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .form-dot.W{background:var(--green);color:#000;}
+    .form-dot.D{background:#444;color:#fff;}
+    .form-dot.L{background:var(--red);color:#fff;}
+
+    /* 경기 결과 카드 */
+    .match-list{display:flex;flex-direction:column;gap:12px;}
+    .match-card{
+      background:var(--surface);border:1px solid var(--border);
+      border-radius:12px;padding:20px 24px;
+      display:grid;grid-template-columns:1fr 140px 1fr;
+      align-items:center;gap:16px;transition:all .2s;
+    }
+    .match-card:hover{border-color:var(--green);box-shadow:0 4px 24px rgba(0,200,83,.1);}
+    .match-team{font-weight:700;font-size:.95rem;}
+    .match-team.home{text-align:right;}
+    .match-team.away{text-align:left;}
+    .match-center{display:flex;flex-direction:column;align-items:center;gap:6px;}
+    .match-score{
+      font-family:'Bebas Neue',sans-serif;
+      font-size:2.2rem;color:#fff;letter-spacing:.1em;
+    }
+    .match-date{font-size:.7rem;color:#555;letter-spacing:.04em;}
+
+    /* 라운드 배지 */
+    .round-badge{
+      display:inline-block;font-size:.62rem;font-weight:700;
+      letter-spacing:.1em;padding:4px 12px;border-radius:999px;
+    }
+    .badge-FINAL{background:rgba(0,200,83,.15);color:var(--green);border:1px solid rgba(0,200,83,.3);}
+    .badge-SEMI-FINAL{background:rgba(255,214,0,.12);color:var(--yellow);border:1px solid rgba(255,214,0,.25);}
+    .badge-GROUP{background:rgba(136,136,136,.1);color:#777;border:1px solid #333;}
+
+    /* 시즌 선택 */
+    .season-selector{
+      display:flex;gap:10px;margin-bottom:32px;flex-wrap:wrap;
+    }
+    .season-btn{
+      padding:8px 20px;border-radius:999px;
+      border:1px solid var(--border);background:transparent;
+      color:var(--muted);font-size:.82rem;font-weight:700;
+      cursor:pointer;transition:all .2s;font-family:'Noto Sans KR',sans-serif;
+    }
+    .season-btn.active,.season-btn:hover{
+      background:var(--green);border-color:var(--green);color:#000;
+    }
+
+    /* 빈 상태 */
+    .empty{text-align:center;padding:60px;color:var(--muted);}
+    .empty__icon{font-size:3rem;margin-bottom:12px;}
+
+    /* 반응형 */
+    @media(max-width:768px){
+      .nav{padding:0 20px;}
+      .nav__links{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(10,10,10,.98);flex-direction:column;padding:24px;gap:20px;border-bottom:1px solid var(--border);}
+      .nav__links.open{display:flex;}
+      .nav__burger{display:block;}
+      .page-header{padding:90px 20px 40px;}
+      .tabs{padding:0 20px;}
+      .tab{padding:14px 16px;font-size:.82rem;}
+      .content{padding:32px 20px;}
+      .match-card{grid-template-columns:1fr;text-align:center;}
+      .match-team.home,.match-team.away{text-align:center;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- 네비 -->
+<nav class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo">⚽ SOCCER<span>CAMP</span></a>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="pure-league.html" class="active">PURE LEAGUE</a></li>
+      <li><a href="training.html">트레이닝</a></li>
+      <li><a href="coaches.html">코치진</a></li>
+      <li><a href="apply.html" class="nav__cta">신청하기</a></li>
+    </ul>
+    <button class="nav__burger" id="burger">☰</button>
+  </div>
+</nav>
+
+<!-- 페이지 헤더 -->
+<div class="page-header">
+  <div class="page-header__inner">
+    <span class="page-header__badge">⚽ 순수 아마추어 자체 리그</span>
+    <h1 class="page-header__title">PURE LEAGUE</h1>
+    <p class="page-header__sub">사커캠프가 개최하는 순수 아마추어 리그 · 경기 결과 및 순위 자동 반영</p>
+  </div>
+</div>
+
+<!-- 탭 -->
+<div class="tabs">
+  <div class="tabs__inner">
+    <button class="tab active" data-tab="standings">🏆 순위표</button>
+    <button class="tab" data-tab="results">📋 경기 결과</button>
+  </div>
+</div>
+
+<!-- 메인 컨텐츠 -->
+<div class="content" id="mainContent">
+  <div class="loading">
+    <div class="spinner"></div>
+    <p>데이터를 불러오는 중...</p>
+  </div>
+</div>
+
+<script>
+/* =====================================================
+   ⚙️ 여기만 본인 Google Sheets 정보로 교체하세요
+   ===================================================== */
+const SHEET_ID   = 'YOUR_GOOGLE_SHEET_ID';   // ← 나중에 교체
+const SEASON     = '2025 S1';                 // ← 현재 시즌명
+
+/* 지금은 테스트 데이터로 작동합니다 */
+const TEST_DATA = {
+  teams: [
+    { team_name:'사커캠프', badge_emoji:'⚽', logo_url:'' },
+    { team_name:'KFC',     badge_emoji:'🦅', logo_url:'' },
+    { team_name:'FC NFS',  badge_emoji:'🔵', logo_url:'' },
+    { team_name:'RC FC',   badge_emoji:'🔴', logo_url:'' },
+  ],
+  matches: [
+    { match_date:'2025-11-23', home_team:'사커캠프', away_team:'KFC',    home_goals:0, away_goals:1, round:'FINAL'     },
+    { match_date:'2025-11-23', home_team:'FC NFS',  away_team:'RC FC',   home_goals:2, away_goals:3, round:'SEMI-FINAL' },
+    { match_date:'2025-11-17', home_team:'KFC',     away_team:'사커캠프', home_goals:0, away_goals:1, round:'GROUP'     },
+    { match_date:'2025-11-14', home_team:'FC NFS',  away_team:'RC FC',   home_goals:2, away_goals:3, round:'GROUP'     },
+    { match_date:'2025-10-31', home_team:'사커캠프', away_team:'FC NFS',  home_goals:1, away_goals:2, round:'GROUP'     },
+  ]
+};
+
+/* ── 순위 계산 엔진 ── */
+function calcStandings(matches, teams) {
+  const table = {};
+  teams.forEach(t => {
+    table[t.team_name] = {
+      name:t.team_name, badge:t.badge_emoji, logo:t.logo_url,
+      P:0,W:0,D:0,L:0,GF:0,GA:0,GD:0,Pts:0,form:[]
+    };
+  });
+  matches.forEach(m => {
+    const h = m.home_team, a = m.away_team;
+    const hg = parseInt(m.home_goals)||0, ag = parseInt(m.away_goals)||0;
+    if (!table[h] || !table[a]) return;
+    table[h].P++; table[a].P++;
+    table[h].GF+=hg; table[h].GA+=ag;
+    table[a].GF+=ag; table[a].GA+=hg;
+    if(hg>ag){
+      table[h].W++; table[h].Pts+=3; table[h].form.push('W');
+      table[a].L++;                   table[a].form.push('L');
+    } else if(hg<ag){
+      table[a].W++; table[a].Pts+=3; table[a].form.push('W');
+      table[h].L++;                   table[h].form.push('L');
+    } else {
+      table[h].D++; table[h].Pts++;  table[h].form.push('D');
+      table[a].D++; table[a].Pts++;  table[a].form.push('D');
+    }
+  });
+  return Object.values(table)
+    .map(t=>({...t, GD:t.GF-t.GA}))
+    .sort((a,b)=>b.Pts-a.Pts||(b.GF-b.GA)-(a.GF-a.GA)||b.GF-a.GF);
+}
+
+/* ── 순위표 렌더 ── */
+function renderStandings(standings) {
+  const rows = standings.map((t,i) => `
+    <tr>
+      <td><span class="rank rank--${i+1}">${i+1}</span></td>
+      <td>
+        <div class="team-cell">
+          <div class="team-logo">
+            ${t.logo
+              ? `<img src="${t.logo}" alt="${t.name}" onerror="this.parentElement.textContent='${t.badge}'">`
+              : t.badge}
+          </div>
+          <span class="team-name">${t.name}</span>
+        </div>
+      </td>
+      <td>${t.P}</td>
+      <td>${t.W}</td>
+      <td>${t.D}</td>
+      <td>${t.L}</td>
+      <td>${t.GF}</td>
+      <td>${t.GA}</td>
+      <td class="${t.GD>=0?'gd-pos':'gd-neg'}">${t.GD>=0?'+'+t.GD:t.GD}</td>
+      <td><span class="pts">${t.Pts}</span></td>
+      <td>
+        <div class="form">
+          ${t.form.slice(-5).map(r=>`<span class="form-dot ${r}">${r}</span>`).join('')}
+        </div>
+      </td>
+    </tr>
+  `).join('');
+
+  return `
+    <div class="table-wrap">
+      <table class="standings-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th style="text-align:left">팀</th>
+            <th title="경기수">P</th>
+            <th title="승">W</th>
+            <th title="무">D</th>
+            <th title="패">L</th>
+            <th title="득점">득</th>
+            <th title="실점">실</th>
+            <th title="득실차">±</th>
+            <th title="승점">PTS</th>
+            <th>최근 5경기</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  `;
+}
+
+/* ── 경기 결과 렌더 ── */
+function renderResults(matches) {
+  if (!matches.length) return `
+    <div class="empty">
+      <div class="empty__icon">📋</div>
+      <p>아직 경기 결과가 없습니다</p>
+    </div>`;
+
+  const sorted = [...matches].sort((a,b)=>
+    new Date(b.match_date)-new Date(a.match_date)
+  );
+
+  const cards = sorted.map(m => `
+    <div class="match-card">
+      <div class="match-team home">${m.home_team}</div>
+      <div class="match-center">
+        <span class="round-badge badge-${m.round||'GROUP'}">${m.round||'GROUP'}</span>
+        <span class="match-score">${m.home_goals} : ${m.away_goals}</span>
+        <span class="match-date">${m.match_date}</span>
+      </div>
+      <div class="match-team away">${m.away_team}</div>
+    </div>
+  `).join('');
+
+  return `<div class="match-list">${cards}</div>`;
+}
+
+/* ── 탭 전환 ── */
+let currentData = { standings: '', results: '' };
+
+function switchTab(tabName) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+  document.getElementById('mainContent').innerHTML = currentData[tabName];
+}
+
+/* ── 초기화 ── */
+function init() {
+  const { teams, matches } = TEST_DATA;
+  const standings = calcStandings(matches, teams);
+  currentData.standings = renderStandings(standings);
+  currentData.results   = renderResults(matches);
+
+  document.getElementById('mainContent').innerHTML = currentData.standings;
+
+  document.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+}
+
+/* ── 네비 & 스크롤 ── */
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+});
+document.getElementById('burger').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+
+/* 실행 */
+init();
+</script>
+
+</body>
+</html>

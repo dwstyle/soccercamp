@@ -50,13 +50,7 @@
   <!-- ========== HERO ========== -->
   <section class="hero" id="hero">
     <div class="hero-video">
-      <iframe
-        id="heroVideo"
-        src="https://youtu.be/pifxvLL4RCE?si=0B3IpdWKgE6VHB5k"
-        title="Soccer Camp 2026"
-        allow="autoplay; encrypted-media"
-        allowfullscreen
-      ></iframe>
+      <div id="heroPlayer"></div>
     </div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
@@ -262,6 +256,45 @@
     <span class="kakao-label">상담하기</span>
   </a>
 
+  <!-- YouTube IFrame API -->
+  <script>
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var heroPlayer;
+    function onYouTubeIframeAPIReady() {
+      heroPlayer = new YT.Player('heroPlayer', {
+        videoId: 'pifxvLL4RCE',
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          loop: 1,
+          playlist: 'pifxvLL4RCE',
+          controls: 0,
+          showinfo: 0,
+          rel: 0,
+          modestbranding: 1,
+          playsinline: 1,
+          iv_load_policy: 3,
+          disablekb: 1,
+          fs: 0
+        },
+        events: {
+          onReady: function(event) {
+            event.target.mute();
+            event.target.playVideo();
+          },
+          onStateChange: function(event) {
+            if (event.data === YT.PlayerState.ENDED) {
+              event.target.playVideo();
+            }
+          }
+        }
+      });
+    }
+  </script>
   <script src="assets/js/main.js"></script>
 </body>
 </html>

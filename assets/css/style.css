@@ -830,15 +830,6 @@ img {
     padding: 14px 24px;
   }
 
-  /* Hero */
-  .hero-video {
-    display: none;
-  }
-
-  .hero-image {
-    display: block;
-  }
-
   .hero-title {
     font-size: 40px;
     letter-spacing: 2px;

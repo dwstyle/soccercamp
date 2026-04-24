@@ -1470,9 +1470,9 @@ img {
 .profile-photo img {
   width: 100%;
   max-width: 340px;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  object-position: top center;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
   border-radius: var(--radius);
   border: 3px solid var(--green);
   position: sticky;
@@ -1680,9 +1680,9 @@ img {
 
 .profile-photo img {
   max-width: 260px;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  object-position: top center;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
   margin: 0 auto;
   position: static;
 }

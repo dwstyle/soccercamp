@@ -1450,7 +1450,7 @@ img {
 }
 
 .profile-layout.reverse {
-  grid-template-columns: 1fr 400px;
+  grid-template-columns: 1fr 450px;
 }
 
 .profile-layout.reverse .profile-photo {

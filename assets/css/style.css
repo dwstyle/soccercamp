@@ -399,10 +399,11 @@ img {
 }
 
 .coach-highlight-image img {
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   object-fit: cover;
+  object-position: top center;
   border: 3px solid var(--green);
   flex-shrink: 0;
 }
@@ -886,10 +887,10 @@ img {
     padding: 24px;
   }
 
-  .coach-highlight-image img {
-    width: 100px;
-    height: 100px;
-  }
+.coach-highlight-image img {
+  width: 120px;
+  height: 120px;
+}
 
   /* Coaches */
   .coach-grid {

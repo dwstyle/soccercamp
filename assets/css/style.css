@@ -1405,3 +1405,310 @@ img {
     font-size: 28px;
   }
 }
+
+/* ==========================================
+   COACHES PAGE
+   ========================================== */
+
+.coaches-page {
+  padding-top: 72px;
+}
+
+/* --- Hero --- */
+.coaches-hero {
+  padding: 60px 0 40px;
+  text-align: center;
+}
+
+.coaches-page-title {
+  font-family: var(--font-heading);
+  font-size: clamp(40px, 6vw, 64px);
+  letter-spacing: 4px;
+  margin-bottom: 16px;
+  background: var(--gradient-hero);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.coaches-page-lead {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--gray);
+}
+
+/* --- Profile Section --- */
+.coach-profile {
+  padding: 60px 0;
+}
+
+.profile-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.profile-layout.reverse {
+  grid-template-columns: 1fr 320px;
+}
+
+.profile-layout.reverse .profile-photo {
+  order: 2;
+}
+
+.profile-layout.reverse .profile-content {
+  order: 1;
+}
+
+/* Photo */
+.profile-photo img {
+  width: 100%;
+  max-width: 320px;
+  border-radius: var(--radius);
+  border: 3px solid var(--green);
+  position: sticky;
+  top: 100px;
+}
+
+/* Badge */
+.profile-badge {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: var(--dark);
+  background: var(--green);
+  padding: 4px 14px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+/* Name */
+.profile-name {
+  font-family: var(--font-body);
+  font-size: 32px;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.profile-eng {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: var(--gray);
+  font-weight: 400;
+  margin-left: 8px;
+}
+
+/* Tagline */
+.profile-tagline {
+  font-size: 16px;
+  color: var(--green);
+  font-weight: 500;
+  margin-bottom: 28px;
+}
+
+/* Stats */
+.profile-stats {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  text-align: center;
+  min-width: 80px;
+}
+
+.stat-number {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 28px;
+  color: var(--green);
+  letter-spacing: 1px;
+}
+
+.stat-label {
+  display: block;
+  font-size: 11px;
+  color: var(--gray);
+  margin-top: 4px;
+  letter-spacing: 0.5px;
+}
+
+/* Bio */
+.profile-bio {
+  margin-bottom: 32px;
+}
+
+.profile-bio p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--gray);
+  margin-bottom: 12px;
+}
+
+/* Career Timeline */
+.profile-career {
+  margin-bottom: 24px;
+}
+
+.career-title {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  letter-spacing: 3px;
+  color: var(--white);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.career-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.career-item {
+  display: grid;
+  grid-template-columns: 100px 140px 1fr;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  transition: background var(--transition);
+}
+
+.career-item:hover {
+  background: var(--surface);
+}
+
+.career-item.highlight {
+  background: var(--surface);
+  border-left: 3px solid var(--green);
+}
+
+.career-year {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  letter-spacing: 1px;
+  color: var(--green);
+}
+
+.career-team {
+  font-weight: 700;
+  color: var(--white);
+}
+
+.career-note {
+  color: var(--gray);
+  font-size: 13px;
+}
+
+/* License */
+.profile-license {
+  margin-bottom: 24px;
+}
+
+.license-badge {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 6px 16px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+}
+
+/* Quote */
+.profile-quote {
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.8;
+  color: var(--white);
+  padding: 24px;
+  background: var(--surface);
+  border-left: 4px solid var(--green);
+  border-radius: var(--radius-sm);
+  margin-top: 8px;
+}
+
+/* Divider */
+.coach-divider {
+  padding: 0;
+}
+
+/* CTA single line */
+.cta-copy-single {
+  font-size: 18px;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .coaches-hero {
+    padding: 40px 0 24px;
+  }
+
+  .profile-layout,
+  .profile-layout.reverse {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .profile-layout.reverse .profile-photo,
+  .profile-layout.reverse .profile-content {
+    order: unset;
+  }
+
+  .profile-photo img {
+    max-width: 220px;
+    margin: 0 auto;
+    position: static;
+  }
+
+  .profile-name {
+    font-size: 26px;
+  }
+
+  .profile-eng {
+    display: block;
+    margin-left: 0;
+    margin-top: 4px;
+  }
+
+  .profile-stats {
+    gap: 12px;
+  }
+
+  .stat-item {
+    min-width: 70px;
+    padding: 12px 14px;
+  }
+
+  .stat-number {
+    font-size: 22px;
+  }
+
+  .career-item {
+    grid-template-columns: 1fr;
+    gap: 2px;
+    padding: 12px;
+  }
+
+  .career-note {
+    font-size: 12px;
+  }
+
+  .coach-profile {
+    padding: 40px 0;
+  }
+}

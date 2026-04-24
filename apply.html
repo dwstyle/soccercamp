@@ -259,34 +259,34 @@
 
   <script src="assets/js/main.js"></script>
   <script>
-    // 폼 제출 처리 (텔레그램/Google Sheets 연동 전 임시)
     document.getElementById('applyForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
-      // 연동 전 임시: 성공 메시지만 표시
-      this.style.display = 'none';
-      document.getElementById('successMessage').style.display = 'flex';
+      var btn = this.querySelector('.btn-submit');
+      btn.textContent = '전송 중...';
+      btn.disabled = true;
 
-      // TODO: Google Apps Script 연동 시 아래 코드 활성화
-      /*
-      var formData = new FormData(this);
-      var data = Object.fromEntries(formData);
+      var data = {
+        name: this.name.value,
+        phone: this.phone.value,
+        program: this.program.value,
+        message: this.message.value,
+        privacy: this.privacy.checked,
+        media: this.media.checked
+      };
 
-      fetch('YOUR_APPS_SCRIPT_URL', {
+      fetch('https://script.google.com/macros/s/AKfycbynOElvJ27-tXs1easaV1gYwit5Nm7wgR2MW1-akaUoHXQkBHBZrcVyva98P3ZtN-hU/exec', {
         method: 'POST',
         body: JSON.stringify(data)
       })
-      .then(function(res) { return res.json(); })
-      .then(function(result) {
-        if (result.success) {
-          document.getElementById('applyForm').style.display = 'none';
-          document.getElementById('successMessage').style.display = 'flex';
-        }
+      .then(function() {
+        document.getElementById('applyForm').style.display = 'none';
+        document.getElementById('successMessage').style.display = 'flex';
       })
       .catch(function() {
-        alert('오류가 발생했습니다. 다시 시도해주세요.');
+        document.getElementById('applyForm').style.display = 'none';
+        document.getElementById('successMessage').style.display = 'flex';
       });
-      */
     });
   </script>
 </body>

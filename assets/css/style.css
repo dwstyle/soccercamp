@@ -1469,6 +1469,7 @@ img {
   border: 3px solid var(--green);
   position: sticky;
   top: 100px;
+  object-fit: contain;
 }
 
 /* Badge */
@@ -1673,6 +1674,7 @@ img {
     max-width: 220px;
     margin: 0 auto;
     position: static;
+    object-fit: contain;
   }
 
   .profile-name {

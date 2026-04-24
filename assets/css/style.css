@@ -796,6 +796,11 @@ img {
   }
 }
 
+.profile-layout,
+.profile-layout.reverse {
+  grid-template-columns: 280px 1fr;
+}
+
 /* Mobile */
 @media (max-width: 768px) {
 
@@ -1444,13 +1449,13 @@ img {
 
 .profile-layout {
   display: grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: 340px 1fr;
   gap: 48px;
   align-items: start;
 }
 
 .profile-layout.reverse {
-  grid-template-columns: 1fr 400px;
+  grid-template-columns: 1fr 340px;
 }
 
 .profile-layout.reverse .profile-photo {
@@ -1464,14 +1469,14 @@ img {
 /* Photo */
 .profile-photo img {
   width: 100%;
-  max-width: 400px;
-  height: auto;
+  max-width: 340px;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: top center;
   border-radius: var(--radius);
   border: 3px solid var(--green);
   position: sticky;
   top: 100px;
-  object-fit: contain;
-  aspect-ratio: auto;
 }
 
 /* Badge */
@@ -1674,12 +1679,12 @@ img {
   }
 
 .profile-photo img {
-  max-width: 280px;
-  height: auto;
+  max-width: 260px;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: top center;
   margin: 0 auto;
   position: static;
-  object-fit: contain;
-  aspect-ratio: auto;
 }
 
   .profile-name {

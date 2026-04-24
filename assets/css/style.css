@@ -1450,7 +1450,7 @@ img {
 }
 
 .profile-layout.reverse {
-  grid-template-columns: 1fr 320px;
+  grid-template-columns: 1fr 400px;
 }
 
 .profile-layout.reverse .profile-photo {
@@ -1464,12 +1464,14 @@ img {
 /* Photo */
 .profile-photo img {
   width: 100%;
-  max-width: 320px;
+  max-width: 400px;
+  height: auto;
   border-radius: var(--radius);
   border: 3px solid var(--green);
   position: sticky;
   top: 100px;
   object-fit: contain;
+  aspect-ratio: auto;
 }
 
 /* Badge */
@@ -1659,23 +1661,26 @@ img {
     padding: 40px 0 24px;
   }
 
-  .profile-layout,
-  .profile-layout.reverse {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
+.profile-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 48px;
+  align-items: start;
+}
 
   .profile-layout.reverse .profile-photo,
   .profile-layout.reverse .profile-content {
     order: unset;
   }
 
-  .profile-photo img {
-    max-width: 220px;
-    margin: 0 auto;
-    position: static;
-    object-fit: contain;
-  }
+.profile-photo img {
+  max-width: 280px;
+  height: auto;
+  margin: 0 auto;
+  position: static;
+  object-fit: contain;
+  aspect-ratio: auto;
+}
 
   .profile-name {
     font-size: 26px;

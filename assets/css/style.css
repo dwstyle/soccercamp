@@ -1714,3 +1714,10 @@ img {
     padding: 40px 0;
   }
 }
+
+/* Instagram Embed */
+.insta-embed {
+  max-width: 720px;
+  margin: 0 auto 32px;
+}
+

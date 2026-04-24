@@ -790,15 +790,16 @@ img {
   .coach-grid {
     gap: 32px;
   }
-
   .schedule-card {
     width: 300px;
   }
-}
-
-.profile-layout,
-.profile-layout.reverse {
-  grid-template-columns: 280px 1fr;
+  /* 아래 추가 */
+  .profile-layout {
+    grid-template-columns: 300px 1fr;
+  }
+  .profile-layout.reverse {
+    grid-template-columns: 1fr 300px;
+  }
 }
 
 /* Mobile */
@@ -1665,61 +1666,49 @@ img {
   .coaches-hero {
     padding: 40px 0 24px;
   }
-
-.profile-layout {
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 48px;
-  align-items: start;
-}
-
+  .profile-layout,
+  .profile-layout.reverse {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
   .profile-layout.reverse .profile-photo,
   .profile-layout.reverse .profile-content {
     order: unset;
   }
-
-.profile-photo img {
-  max-width: 260px;
-  height: auto;
-  aspect-ratio: auto;
-  object-fit: contain;
-  margin: 0 auto;
-  position: static;
-}
-
+  .profile-photo img {
+    max-width: 260px;
+    height: auto;
+    aspect-ratio: auto;
+    object-fit: contain;
+    margin: 0 auto;
+    position: static;
+  }
   .profile-name {
     font-size: 26px;
   }
-
   .profile-eng {
     display: block;
     margin-left: 0;
     margin-top: 4px;
   }
-
   .profile-stats {
     gap: 12px;
   }
-
   .stat-item {
     min-width: 70px;
     padding: 12px 14px;
   }
-
   .stat-number {
     font-size: 22px;
   }
-
   .career-item {
     grid-template-columns: 1fr;
     gap: 2px;
     padding: 12px;
   }
-
   .career-note {
     font-size: 12px;
   }
-
   .coach-profile {
     padding: 40px 0;
   }

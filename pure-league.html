@@ -3,402 +3,514 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PURE LEAGUE | 사커캠프 아마추어 리그</title>
+  <title>PURE LEAGUE – 순수 아마추어 자체 리그 | 사커캠프</title>
+  <meta name="description" content="사커캠프가 개최하는 순수 아마추어 축구 리그 PURE LEAGUE. 경기 결과, 순위표, 준결승·결승 결과를 확인하세요.">
+  <meta name="keywords" content="퓨어리그,PURE LEAGUE,사커캠프,아마추어 축구 리그,하남 축구,아마추어 리그">
+  <link rel="canonical" href="https://soccercamp.co.kr/pure-league.html">
+  <meta property="og:title" content="PURE LEAGUE – 순수 아마추어 자체 리그">
+  <meta property="og:description" content="사커캠프가 개최하는 순수 아마추어 축구 리그. 경기 결과 및 순위 확인.">
+  <meta property="og:url" content="https://soccercamp.co.kr/pure-league.html">
+  <meta property="og:type" content="website">
+  <meta name="google-site-verification" content="qZDamxHqrNzRF42vZt-cmKcgnsHsUlDh_p25TgHBCNA">
+  <meta name="naver-site-verification" content="db9293db037be123ba2b73a7d4a34fbe4c0d41dd">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
   <style>
-    :root {
-      --green:#00C853; --dark:#0A0A0A; --surface:#141414;
-      --border:#2A2A2A; --text:#F0F0F0; --muted:#888;
-      --yellow:#FFD600; --red:#E53935;
+    /* ===== PURE LEAGUE PAGE STYLES ===== */
+    .pl-hero {
+      padding: 160px 0 80px;
+      background: var(--gradient-hero);
+      text-align: center;
     }
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    html{scroll-behavior:smooth;}
-    body{background:var(--dark);color:var(--text);font-family:'Noto Sans KR',sans-serif;line-height:1.6;}
-    a{color:inherit;text-decoration:none;}
-
-    /* 네비 */
-    .nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 40px;height:64px;display:flex;align-items:center;transition:all .3s ease;}
-    .nav.scrolled{background:rgba(10,10,10,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
-    .nav__inner{max-width:1200px;margin:0 auto;width:100%;display:flex;align-items:center;justify-content:space-between;}
-    .nav__logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.1em;color:#fff;}
-    .nav__logo span{color:var(--green);}
-    .nav__links{display:flex;gap:32px;list-style:none;align-items:center;}
-    .nav__links a{font-size:.88rem;font-weight:600;color:var(--muted);letter-spacing:.04em;transition:color .2s;}
-    .nav__links a:hover,.nav__links a.active{color:#fff;}
-    .nav__cta{background:var(--green)!important;color:#000!important;padding:8px 20px!important;border-radius:8px;font-weight:800!important;}
-    .nav__burger{display:none;background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;}
-
-    /* 페이지 헤더 */
-    .page-header{
-      padding:120px 40px 60px;
-      background:linear-gradient(180deg,rgba(0,200,83,.08) 0%,transparent 100%);
-      border-bottom:1px solid var(--border);
+    .pl-hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem;
+      color: var(--green);
+      letter-spacing: 4px;
     }
-    .page-header__inner{max-width:1200px;margin:0 auto;}
-    .page-header__badge{
-      display:inline-block;
-      background:rgba(0,200,83,.12);border:1px solid rgba(0,200,83,.3);
-      color:var(--green);font-size:.72rem;font-weight:700;
-      letter-spacing:.14em;padding:6px 16px;border-radius:999px;margin-bottom:16px;
+    .pl-hero .lead {
+      color: var(--gray);
+      font-size: 1.1rem;
+      margin-top: 12px;
     }
-    .page-header__title{
-      font-family:'Bebas Neue',sans-serif;
-      font-size:clamp(3rem,7vw,5.5rem);
-      letter-spacing:.04em;color:#fff;margin-bottom:8px;
-    }
-    .page-header__sub{color:var(--muted);font-size:.9rem;}
-
-    /* 탭 */
-    .tabs{border-bottom:1px solid var(--border);padding:0 40px;}
-    .tabs__inner{max-width:1200px;margin:0 auto;display:flex;gap:4px;}
-    .tab{
-      padding:16px 28px;background:transparent;
-      border:none;border-bottom:3px solid transparent;
-      color:var(--muted);font-weight:700;font-size:.9rem;
-      cursor:pointer;transition:all .2s;letter-spacing:.04em;
-      font-family:'Noto Sans KR',sans-serif;
-    }
-    .tab.active,.tab:hover{color:var(--green);border-bottom-color:var(--green);}
-
-    /* 컨텐츠 영역 */
-    .content{max-width:1200px;margin:0 auto;padding:48px 40px;}
-
-    /* 로딩 */
-    .loading{text-align:center;padding:80px 0;color:var(--muted);}
-    .spinner{
-      width:40px;height:40px;
-      border:3px solid var(--border);border-top-color:var(--green);
-      border-radius:50%;animation:spin .8s linear infinite;
-      margin:0 auto 16px;
-    }
-    @keyframes spin{to{transform:rotate(360deg);}}
 
     /* 순위표 */
-    .table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border);}
-    .standings-table{width:100%;border-collapse:collapse;font-size:.88rem;}
-    .standings-table thead tr{background:#1A1A1A;border-bottom:2px solid var(--green);}
-    .standings-table th{
-      padding:14px 16px;text-align:center;
-      font-size:.68rem;font-weight:700;color:var(--muted);
-      letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;
+    .standings { padding: 60px 0; }
+    .standings h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.4rem;
+      color: var(--white);
+      text-align: center;
+      margin-bottom: 32px;
     }
-    .standings-table th:nth-child(2){text-align:left;}
-    .standings-table td{padding:16px;text-align:center;border-bottom:1px solid #1A1A1A;vertical-align:middle;}
-    .standings-table td:nth-child(2){text-align:left;}
-    .standings-table tbody tr{transition:background .15s;}
-    .standings-table tbody tr:hover{background:rgba(0,200,83,.05);}
-    .standings-table tbody tr:last-child td{border-bottom:none;}
-
-    /* 순위 번호 */
-    .rank{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;}
-    .rank--1{color:var(--yellow);}
-    .rank--2{color:#C0C0C0;}
-    .rank--3{color:#CD7F32;}
-
-    /* 팀 셀 */
-    .team-cell{display:flex;align-items:center;gap:12px;}
-    .team-logo{
-      width:36px;height:36px;border-radius:50%;
-      background:var(--border);display:flex;
-      align-items:center;justify-content:center;
-      font-size:1.1rem;flex-shrink:0;overflow:hidden;
+    .standings-table {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      border-collapse: collapse;
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
     }
-    .team-logo img{width:100%;height:100%;object-fit:cover;}
-    .team-name{font-weight:700;font-size:.92rem;}
-
-    /* 승점 */
-    .pts{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--green);}
-
-    /* GD 색상 */
-    .gd-pos{color:var(--green);}
-    .gd-neg{color:var(--red);}
-
-    /* 최근 폼 */
-    .form{display:flex;gap:4px;justify-content:center;}
-    .form-dot{
-      width:22px;height:22px;border-radius:5px;
-      font-size:.62rem;font-weight:800;
-      display:flex;align-items:center;justify-content:center;
-    }
-    .form-dot.W{background:var(--green);color:#000;}
-    .form-dot.D{background:#444;color:#fff;}
-    .form-dot.L{background:var(--red);color:#fff;}
-
-    /* 경기 결과 카드 */
-    .match-list{display:flex;flex-direction:column;gap:12px;}
-    .match-card{
-      background:var(--surface);border:1px solid var(--border);
-      border-radius:12px;padding:20px 24px;
-      display:grid;grid-template-columns:1fr 140px 1fr;
-      align-items:center;gap:16px;transition:all .2s;
-    }
-    .match-card:hover{border-color:var(--green);box-shadow:0 4px 24px rgba(0,200,83,.1);}
-    .match-team{font-weight:700;font-size:.95rem;}
-    .match-team.home{text-align:right;}
-    .match-team.away{text-align:left;}
-    .match-center{display:flex;flex-direction:column;align-items:center;gap:6px;}
-    .match-score{
-      font-family:'Bebas Neue',sans-serif;
-      font-size:2.2rem;color:#fff;letter-spacing:.1em;
-    }
-    .match-date{font-size:.7rem;color:#555;letter-spacing:.04em;}
-
-    /* 라운드 배지 */
-    .round-badge{
-      display:inline-block;font-size:.62rem;font-weight:700;
-      letter-spacing:.1em;padding:4px 12px;border-radius:999px;
-    }
-    .badge-FINAL{background:rgba(0,200,83,.15);color:var(--green);border:1px solid rgba(0,200,83,.3);}
-    .badge-SEMI-FINAL{background:rgba(255,214,0,.12);color:var(--yellow);border:1px solid rgba(255,214,0,.25);}
-    .badge-GROUP{background:rgba(136,136,136,.1);color:#777;border:1px solid #333;}
-
-    /* 시즌 선택 */
-    .season-selector{
-      display:flex;gap:10px;margin-bottom:32px;flex-wrap:wrap;
-    }
-    .season-btn{
-      padding:8px 20px;border-radius:999px;
-      border:1px solid var(--border);background:transparent;
-      color:var(--muted);font-size:.82rem;font-weight:700;
-      cursor:pointer;transition:all .2s;font-family:'Noto Sans KR',sans-serif;
-    }
-    .season-btn.active,.season-btn:hover{
-      background:var(--green);border-color:var(--green);color:#000;
+    .standings-table thead { background: var(--green); color: var(--dark); }
+    .standings-table th,
+    .standings-table td { padding: 12px 14px; text-align: center; font-size: 0.95rem; }
+    .standings-table tbody tr { border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .standings-table tbody tr:hover { background: rgba(0,200,83,0.06); }
+    .standings-table .rank { font-weight: 900; font-size: 1.2rem; }
+    .standings-table .team-name { text-align: left; font-weight: 700; }
+    .standings-note {
+      text-align: center; color: var(--gray); font-size: 0.85rem; margin-top: 12px;
     }
 
-    /* 빈 상태 */
-    .empty{text-align:center;padding:60px;color:var(--muted);}
-    .empty__icon{font-size:3rem;margin-bottom:12px;}
+    /* 경기 카드 공통 */
+    .matches, .knockout-section { padding: 60px 0; }
+    .matches h2, .knockout-section h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.4rem;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .matches h2 { color: var(--white); }
+    .knockout-section h2 { color: #FFD700; }
+
+    .match-list {
+      display: flex; flex-direction: column; gap: 24px;
+      max-width: 780px; margin: 0 auto;
+    }
+
+    .match-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .match-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+    .match-card.knockout-card { border: 2px solid #FFD700; }
+
+    .match-header {
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px 24px; gap: 16px; position: relative;
+    }
+    .match-meta {
+      position: absolute; top: 8px; left: 16px;
+      display: flex; gap: 12px; font-size: 0.75rem; color: var(--gray);
+    }
+    .match-badge {
+      position: absolute; top: -1px; right: 16px;
+      background: #FFD700; color: var(--dark);
+      font-size: 0.7rem; font-weight: 900;
+      padding: 3px 12px; border-radius: 0 0 8px 8px;
+      letter-spacing: 1px;
+    }
+    .match-round-badge {
+      position: absolute; top: -1px; right: 16px;
+      background: var(--green); color: var(--dark);
+      font-size: 0.7rem; font-weight: 900;
+      padding: 3px 12px; border-radius: 0 0 8px 8px;
+    }
+    .match-team {
+      flex: 1; text-align: center; font-weight: 700;
+      font-size: 1.05rem; color: var(--white);
+    }
+    .match-team.home { text-align: right; }
+    .match-team.away { text-align: left; }
+    .match-score {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem; color: var(--green);
+      min-width: 80px; text-align: center;
+    }
+    .match-score .vs { font-size: 1rem; color: var(--gray); margin: 0 4px; }
+
+    /* 세부 기록 토글 */
+    .match-details {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 0 24px;
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+    }
+    .match-card.open .match-details {
+      max-height: 800px; padding: 20px 24px;
+    }
+    .match-details-inner { font-size: 0.88rem; color: var(--gray); line-height: 1.8; }
+    .match-details-inner strong { color: var(--white); }
+
+    .detail-toggle {
+      display: block; width: 100%; padding: 10px;
+      background: rgba(255,255,255,0.03);
+      border: none; border-top: 1px solid rgba(255,255,255,0.06);
+      color: var(--green); font-size: 0.8rem; cursor: pointer;
+      transition: var(--transition);
+    }
+    .detail-toggle:hover { background: rgba(0,200,83,0.08); }
+
+    /* 갤러리 (경기 내) */
+    .match-gallery {
+      display: flex; gap: 8px; overflow-x: auto;
+      padding: 12px 0 4px; scroll-snap-type: x mandatory;
+    }
+    .match-gallery img {
+      width: 160px; height: 110px; object-fit: cover;
+      border-radius: 6px; flex-shrink: 0; scroll-snap-align: start;
+    }
+
+    .highlight-link {
+      display: inline-block; margin-top: 10px;
+      color: var(--green); font-size: 0.85rem; font-weight: 700;
+      text-decoration: none;
+    }
+    .highlight-link:hover { text-decoration: underline; }
+
+    /* 챔피언 배너 */
+    .champion-banner { text-align: center; padding: 48px 0 20px; }
+    .champion-banner .trophy { font-size: 3.5rem; }
+    .champion-banner h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem; color: #FFD700; margin-top: 8px;
+    }
+    .champion-banner p { color: var(--gray); font-size: 0.95rem; margin-top: 4px; }
 
     /* 반응형 */
-    @media(max-width:768px){
-      .nav{padding:0 20px;}
-      .nav__links{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(10,10,10,.98);flex-direction:column;padding:24px;gap:20px;border-bottom:1px solid var(--border);}
-      .nav__links.open{display:flex;}
-      .nav__burger{display:block;}
-      .page-header{padding:90px 20px 40px;}
-      .tabs{padding:0 20px;}
-      .tab{padding:14px 16px;font-size:.82rem;}
-      .content{padding:32px 20px;}
-      .match-card{grid-template-columns:1fr;text-align:center;}
-      .match-team.home,.match-team.away{text-align:center;}
+    @media (max-width: 768px) {
+      .pl-hero h1 { font-size: 2.6rem; }
+      .pl-hero { padding: 120px 0 60px; }
+      .match-header {
+        flex-direction: column; gap: 8px; padding: 44px 16px 16px;
+      }
+      .match-team.home, .match-team.away { text-align: center; }
+      .match-meta { position: static; justify-content: center; margin-bottom: 4px; }
+      .match-badge, .match-round-badge { position: static; border-radius: 20px; margin-bottom: 4px; display: inline-block; }
+      .standings-table th,
+      .standings-table td { padding: 8px 5px; font-size: 0.78rem; }
+      .match-gallery img { width: 130px; height: 90px; }
+      .match-score { font-size: 1.8rem; }
     }
   </style>
 </head>
 <body>
 
-<!-- 네비 -->
-<nav class="nav" id="nav">
-  <div class="nav__inner">
-    <a href="index.html" class="nav__logo">⚽ SOCCER<span>CAMP</span></a>
-    <ul class="nav__links" id="navLinks">
-      <li><a href="pure-league.html" class="active">PURE LEAGUE</a></li>
-      <li><a href="training.html">트레이닝</a></li>
-      <li><a href="coaches.html">코치진</a></li>
-      <li><a href="apply.html" class="nav__cta">신청하기</a></li>
-    </ul>
-    <button class="nav__burger" id="burger">☰</button>
-  </div>
-</nav>
+  <!-- ========== HEADER ========== -->
+  <header class="header scrolled" id="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <img src="https://res.cloudinary.com/dgdg7vrwr/image/upload/h_40,f_auto,q_auto/soccer_camp-logos_vfuhl1.jpg" alt="Soccer Camp 로고" height="40">
+      </a>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+      <nav class="nav" id="mainNav">
+        <a href="index.html#about">소개</a>
+        <a href="coaches.html">코치진</a>
+        <a href="index.html#schedule">스케줄</a>
+        <a href="training.html">트레이닝</a>
+        <a href="pure-league.html">퓨어리그</a>
+        <a href="apply.html" class="nav-cta">신청하기</a>
+      </nav>
+    </div>
+  </header>
 
-<!-- 페이지 헤더 -->
-<div class="page-header">
-  <div class="page-header__inner">
-    <span class="page-header__badge">⚽ 순수 아마추어 자체 리그</span>
-    <h1 class="page-header__title">PURE LEAGUE</h1>
-    <p class="page-header__sub">사커캠프가 개최하는 순수 아마추어 리그 · 경기 결과 및 순위 자동 반영</p>
-  </div>
-</div>
+  <!-- ========== HERO ========== -->
+  <section class="pl-hero">
+    <div class="container">
+      <h1>PURE LEAGUE 2025</h1>
+      <p class="lead">사커캠프가 개최하는 순수 아마추어 자체 리그 · 경기 결과 및 순위</p>
+    </div>
+  </section>
 
-<!-- 탭 -->
-<div class="tabs">
-  <div class="tabs__inner">
-    <button class="tab active" data-tab="standings">🏆 순위표</button>
-    <button class="tab" data-tab="results">📋 경기 결과</button>
-  </div>
-</div>
-
-<!-- 메인 컨텐츠 -->
-<div class="content" id="mainContent">
-  <div class="loading">
-    <div class="spinner"></div>
-    <p>데이터를 불러오는 중...</p>
-  </div>
-</div>
-
-<script>
-/* =====================================================
-   ⚙️ 여기만 본인 Google Sheets 정보로 교체하세요
-   ===================================================== */
-const SHEET_ID   = 'YOUR_GOOGLE_SHEET_ID';   // ← 나중에 교체
-const SEASON     = '2025 S1';                 // ← 현재 시즌명
-
-/* 지금은 테스트 데이터로 작동합니다 */
-const TEST_DATA = {
-  teams: [
-    { team_name:'사커캠프', badge_emoji:'⚽', logo_url:'' },
-    { team_name:'KFC',     badge_emoji:'🦅', logo_url:'' },
-    { team_name:'FC NFS',  badge_emoji:'🔵', logo_url:'' },
-    { team_name:'RC FC',   badge_emoji:'🔴', logo_url:'' },
-  ],
-  matches: [
-    { match_date:'2025-11-23', home_team:'사커캠프', away_team:'KFC',    home_goals:0, away_goals:1, round:'FINAL'     },
-    { match_date:'2025-11-23', home_team:'FC NFS',  away_team:'RC FC',   home_goals:2, away_goals:3, round:'SEMI-FINAL' },
-    { match_date:'2025-11-17', home_team:'KFC',     away_team:'사커캠프', home_goals:0, away_goals:1, round:'GROUP'     },
-    { match_date:'2025-11-14', home_team:'FC NFS',  away_team:'RC FC',   home_goals:2, away_goals:3, round:'GROUP'     },
-    { match_date:'2025-10-31', home_team:'사커캠프', away_team:'FC NFS',  home_goals:1, away_goals:2, round:'GROUP'     },
-  ]
-};
-
-/* ── 순위 계산 엔진 ── */
-function calcStandings(matches, teams) {
-  const table = {};
-  teams.forEach(t => {
-    table[t.team_name] = {
-      name:t.team_name, badge:t.badge_emoji, logo:t.logo_url,
-      P:0,W:0,D:0,L:0,GF:0,GA:0,GD:0,Pts:0,form:[]
-    };
-  });
-  matches.forEach(m => {
-    const h = m.home_team, a = m.away_team;
-    const hg = parseInt(m.home_goals)||0, ag = parseInt(m.away_goals)||0;
-    if (!table[h] || !table[a]) return;
-    table[h].P++; table[a].P++;
-    table[h].GF+=hg; table[h].GA+=ag;
-    table[a].GF+=ag; table[a].GA+=hg;
-    if(hg>ag){
-      table[h].W++; table[h].Pts+=3; table[h].form.push('W');
-      table[a].L++;                   table[a].form.push('L');
-    } else if(hg<ag){
-      table[a].W++; table[a].Pts+=3; table[a].form.push('W');
-      table[h].L++;                   table[h].form.push('L');
-    } else {
-      table[h].D++; table[h].Pts++;  table[h].form.push('D');
-      table[a].D++; table[a].Pts++;  table[a].form.push('D');
-    }
-  });
-  return Object.values(table)
-    .map(t=>({...t, GD:t.GF-t.GA}))
-    .sort((a,b)=>b.Pts-a.Pts||(b.GF-b.GA)-(a.GF-a.GA)||b.GF-a.GF);
-}
-
-/* ── 순위표 렌더 ── */
-function renderStandings(standings) {
-  const rows = standings.map((t,i) => `
-    <tr>
-      <td><span class="rank rank--${i+1}">${i+1}</span></td>
-      <td>
-        <div class="team-cell">
-          <div class="team-logo">
-            ${t.logo
-              ? `<img src="${t.logo}" alt="${t.name}" onerror="this.parentElement.textContent='${t.badge}'">`
-              : t.badge}
-          </div>
-          <span class="team-name">${t.name}</span>
-        </div>
-      </td>
-      <td>${t.P}</td>
-      <td>${t.W}</td>
-      <td>${t.D}</td>
-      <td>${t.L}</td>
-      <td>${t.GF}</td>
-      <td>${t.GA}</td>
-      <td class="${t.GD>=0?'gd-pos':'gd-neg'}">${t.GD>=0?'+'+t.GD:t.GD}</td>
-      <td><span class="pts">${t.Pts}</span></td>
-      <td>
-        <div class="form">
-          ${t.form.slice(-5).map(r=>`<span class="form-dot ${r}">${r}</span>`).join('')}
-        </div>
-      </td>
-    </tr>
-  `).join('');
-
-  return `
-    <div class="table-wrap">
+  <!-- ========== STANDINGS (R1~R3 조별리그만) ========== -->
+  <section class="section standings">
+    <div class="container">
+      <h2>GROUP STAGE STANDINGS</h2>
       <table class="standings-table">
         <thead>
           <tr>
             <th>#</th>
-            <th style="text-align:left">팀</th>
-            <th title="경기수">P</th>
-            <th title="승">W</th>
-            <th title="무">D</th>
-            <th title="패">L</th>
-            <th title="득점">득</th>
-            <th title="실점">실</th>
-            <th title="득실차">±</th>
-            <th title="승점">PTS</th>
-            <th>최근 5경기</th>
+            <th class="team-name">팀명</th>
+            <th>경기</th>
+            <th>승</th>
+            <th>무</th>
+            <th>패</th>
+            <th>득점</th>
+            <th>실점</th>
+            <th>득실</th>
+            <th>승점</th>
           </tr>
         </thead>
-        <tbody>${rows}</tbody>
+        <tbody>
+          <tr>
+            <td class="rank">1</td>
+            <td class="team-name">사커캠프 ⚽</td>
+            <td>3</td><td>2</td><td>0</td><td>1</td>
+            <td>5</td><td>3</td><td>+2</td>
+            <td><strong>6</strong></td>
+          </tr>
+          <tr>
+            <td class="rank">2</td>
+            <td class="team-name">KFC 🦅</td>
+            <td>3</td><td>2</td><td>0</td><td>1</td>
+            <td>3</td><td>2</td><td>+1</td>
+            <td><strong>6</strong></td>
+          </tr>
+          <tr>
+            <td class="rank">3</td>
+            <td class="team-name">FC NFS 🔵</td>
+            <td>3</td><td>1</td><td>0</td><td>2</td>
+            <td>4</td><td>5</td><td>-1</td>
+            <td><strong>3</strong></td>
+          </tr>
+          <tr>
+            <td class="rank">4</td>
+            <td class="team-name">RC FC 🔴</td>
+            <td>3</td><td>1</td><td>0</td><td>2</td>
+            <td>5</td><td>7</td><td>-2</td>
+            <td><strong>3</strong></td>
+          </tr>
+        </tbody>
       </table>
+      <p class="standings-note">* 순위 결정: 승점 → 득실차 → 다득점 | 준결승·결승은 순위표에 미포함</p>
     </div>
-  `;
-}
+  </section>
 
-/* ── 경기 결과 렌더 ── */
-function renderResults(matches) {
-  if (!matches.length) return `
-    <div class="empty">
-      <div class="empty__icon">📋</div>
-      <p>아직 경기 결과가 없습니다</p>
-    </div>`;
+  <!-- ========== GROUP STAGE MATCHES (최신순) ========== -->
+  <section class="section matches">
+    <div class="container">
+      <h2>GROUP STAGE RESULTS</h2>
+      <div class="match-list">
 
-  const sorted = [...matches].sort((a,b)=>
-    new Date(b.match_date)-new Date(a.match_date)
-  );
+        <!-- R3 — 11.17 KFC 0 vs 사커캠프 1 -->
+        <div class="match-card" id="match-r3b">
+          <div class="match-header">
+            <div class="match-meta"><span>2025.11.17</span><span>하남종합운동장 보조구장</span></div>
+            <span class="match-round-badge">R3</span>
+            <div class="match-team home">KFC</div>
+            <div class="match-score">0 <span class="vs">:</span> 1</div>
+            <div class="match-team away">사커캠프</div>
+          </div>
+          <div class="match-details">
+            <div class="match-details-inner">
+              <strong>쿼터별 스코어</strong><br>
+              1Q: 0 vs 1 · 2Q: 0 vs 0 · 3Q: 0 vs 0<br><br>
+              <strong>⚽ 득점</strong><br>
+              14번 권민수 (사커캠프, 1Q 22분)<br><br>
+              <strong>🟨 경고</strong><br>
+              13번 정재성 (사커캠프, 3Q 24분)
+            </div>
+            <div class="match-gallery">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FcMJvJM%2FdJMb99Y4ZXG%2FAAAAAAAAAAAAAAAAAAAAAMZQGX_FV5YWtWhrvzWtP8apa3F5Y5O9MG9Y3CN4gW6b%2Fimg.jpg" alt="R3 KFC vs 사커캠프 1" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fwj9gC%2FdJMcaaKr539%2FAAAAAAAAAAAAAAAAAAAAAFES6rA_yWjigcHoyqGwu0znjH-TVnQqObgbLCFsNPtA%2Fimg.jpg" alt="R3 KFC vs 사커캠프 2" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbXaHWQ%2FdJMcafSw0lC%2FAAAAAAAAAAAAAAAAAAAAAJZH-F_5M9mHN8gJ76pnHzArW5cXIRufvDmHQL4tUpvF%2Fimg.jpg" alt="R3 KFC vs 사커캠프 3" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FR5F68%2FdJMcacnX4y5%2FAAAAAAAAAAAAAAAAAAAAAKfjOkL4PZz2mqjhoYToBJb-ePlYnCdK6ppPnJzhIYwg%2Fimg.jpg" alt="R3 KFC vs 사커캠프 4" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FnlGZn%2FdJMcacnX4zn%2FAAAAAAAAAAAAAAAAAAAAAK0PDnsEe9ndgcNZC9XQe7lD8paNsWM_GJ_57VCM3fcC%2Fimg.jpg" alt="R3 KFC vs 사커캠프 5" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbtVhml%2FdJMcacnX4zB%2FAAAAAAAAAAAAAAAAAAAAAKccgZkaTxQmRU-Oq9OvDiiUC5Z6MgBzUmbuMpY9FzUh%2Fimg.jpg" alt="R3 KFC vs 사커캠프 6" loading="lazy">
+            </div>
+            <a href="https://www.instagram.com/p/DRL5lcqEUhu/" target="_blank" rel="noopener" class="highlight-link">📸 하이라이트 보기 →</a>
+          </div>
+          <button class="detail-toggle" onclick="this.parentElement.classList.toggle('open')">세부 기록 보기 ▾</button>
+        </div>
 
-  const cards = sorted.map(m => `
-    <div class="match-card">
-      <div class="match-team home">${m.home_team}</div>
-      <div class="match-center">
-        <span class="round-badge badge-${m.round||'GROUP'}">${m.round||'GROUP'}</span>
-        <span class="match-score">${m.home_goals} : ${m.away_goals}</span>
-        <span class="match-date">${m.match_date}</span>
+        <!-- R3 — 11.14 FC NFS 2 vs RC FC 3 -->
+        <div class="match-card" id="match-r3a">
+          <div class="match-header">
+            <div class="match-meta"><span>2025.11.14</span><span>내곡리스타디움</span></div>
+            <span class="match-round-badge">R3</span>
+            <div class="match-team home">FC NFS</div>
+            <div class="match-score">2 <span class="vs">:</span> 3</div>
+            <div class="match-team away">RC FC</div>
+          </div>
+          <div class="match-details">
+            <div class="match-details-inner">
+              <strong>쿼터별 스코어</strong><br>
+              1Q: 0 vs 0 · 2Q: 0 vs 0 · 3Q: 1 vs 2<br><br>
+              <strong>⚽ 득점</strong><br>
+              10번 이경태 (FC NFS, 2Q 12분 / 2Q 20분)<br>
+              74번 박철 (RC FC, 1Q 23분)<br>
+              8번 박준현 (RC FC, 3Q 12분)<br>
+              23번 이수빈 (RC FC, 3Q 25분)<br><br>
+              <strong>🥅 도움</strong><br>
+              11번 정유성 (FC NFS, 2Q 12분)<br>
+              16번 박승환 (RC FC, 1Q 23분)<br>
+              74번 박철 (RC FC, 3Q 25분)<br><br>
+              <strong>🟨 경고</strong><br>
+              9번 이동수, 70번 이주형, 89번 이용석 (FC NFS)
+            </div>
+            <div class="match-gallery">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FRgyGO%2FdJMcagcPK24%2FAAAAAAAAAAAAAAAAAAAAAKY5Oc64TnZy16kpoyONoNyTSyblII80UtPQOD3pZWnc%2Fimg.jpg" alt="R3 NFS vs RCFC 1" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbuszvN%2FdJMcabWTD6T%2FAAAAAAAAAAAAAAAAAAAAAMw1MLBXzL257QUOfphCz22KEonycyA2xaWXy0wC3E9f%2Fimg.jpg" alt="R3 NFS vs RCFC 2" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FGG4fQ%2FdJMcag4YnZq%2FAAAAAAAAAAAAAAAAAAAAAJH0mTZFELkJzxTjrbIo71vgdz_td9U3sRcvJUVu68cH%2Fimg.jpg" alt="R3 NFS vs RCFC 3" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FceGH1d%2FdJMcaaDGtlZ%2FAAAAAAAAAAAAAAAAAAAAAAB759VdJyuTGkZZ7kTScvAYf7xvXtWs3DNHTbTsA9K2%2Fimg.jpg" alt="R3 NFS vs RCFC 4" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FqdtN4%2FdJMcacuJFrp%2FAAAAAAAAAAAAAAAAAAAAAKZR-gJL5HqUYU5nv2qwNIB-VNdnSO7B7-tuF5hZpOfM%2Fimg.jpg" alt="R3 NFS vs RCFC 5" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbxQJ85%2FdJMcacuJFrR%2FAAAAAAAAAAAAAAAAAAAAAAvLbashe-6tixRq7gg0bsIF74e64z8msjZp-qMtpqeE%2Fimg.jpg" alt="R3 NFS vs RCFC 6" loading="lazy">
+            </div>
+            <a href="https://www.instagram.com/p/DRHS28Ckebs/" target="_blank" rel="noopener" class="highlight-link">📸 하이라이트 보기 →</a>
+          </div>
+          <button class="detail-toggle" onclick="this.parentElement.classList.toggle('open')">세부 기록 보기 ▾</button>
+        </div>
+
+        <!-- R2 — 10.31 사커캠프 1 vs FC NFS 2 -->
+        <div class="match-card" id="match-r2b">
+          <div class="match-header">
+            <div class="match-meta"><span>2025.10.31</span><span>내곡리스타디움</span></div>
+            <span class="match-round-badge">R2</span>
+            <div class="match-team home">사커캠프</div>
+            <div class="match-score">1 <span class="vs">:</span> 2</div>
+            <div class="match-team away">FC NFS</div>
+          </div>
+          <div class="match-details">
+            <div class="match-details-inner">
+              <strong>쿼터별 스코어</strong><br>
+              1Q: 0 vs 0 · 2Q: 0 vs 0 · 3Q: 1 vs 2<br><br>
+              <strong>⚽ 득점</strong><br>
+              78번 송현우 (사커캠프, 3Q 3분)<br>
+              21번 강태호 (FC NFS, 3Q 16분)<br>
+              9번 이동수 (FC NFS, 3Q 24분)
+            </div>
+            <div class="match-gallery">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FlDEhT%2FdJMcaboXFoF%2FAAAAAAAAAAAAAAAAAAAAAG-OdtaTdkCpiFfR12bGuIwMBbE0v_z9ygtRxGEPXpsW%2Fimg.jpg" alt="R2 사커캠프 vs NFS 1" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fbq4g8V%2FdJMcac2twcD%2FAAAAAAAAAAAAAAAAAAAAAFNVbE1elyrhxU_kgUJ1jw_erReCtADh4PBAohXIk35j%2Fimg.jpg" alt="R2 사커캠프 vs NFS 2" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fppq2K%2FdJMcafETFn8%2FAAAAAAAAAAAAAAAAAAAAADCRxxopxbi67BTeTcd_BMB24-jCSASHm3ySVdj089i2%2Fimg.jpg" alt="R2 사커캠프 vs NFS 3" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fk1yPk%2FdJMcac2twcE%2FAAAAAAAAAAAAAAAAAAAAAGcQ0_CrTU56-RPnCXWxy1IsRyEehVD4cEzeBHzg4Ozy%2Fimg.jpg" alt="R2 사커캠프 vs NFS 4" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Foj9Kn%2FdJMcaboXFoE%2FAAAAAAAAAAAAAAAAAAAAAMOYidaYWCp1mZPYBAkGXSWUn83jM0KwpIITCacSBfAR%2Fimg.jpg" alt="R2 사커캠프 vs NFS 5" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbeWlLf%2FdJMcafETFn9%2FAAAAAAAAAAAAAAAAAAAAACZcwzyKMO0Z0tSgDBj_BrQpsK7no7rKJE-NffkUVSW3%2Fimg.jpg" alt="R2 사커캠프 vs NFS 6" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FIsb6M%2FdJMcaboXFoG%2FAAAAAAAAAAAAAAAAAAAAAKYpxShe_iRRO1Oh1c_tLNLwvfnJHDa5iajkzaIoM0Ch%2Fimg.jpg" alt="R2 사커캠프 vs NFS 7" loading="lazy">
+            </div>
+            <a href="https://www.instagram.com/p/DPDLp7REXgw/" target="_blank" rel="noopener" class="highlight-link">📸 하이라이트 보기 →</a>
+          </div>
+          <button class="detail-toggle" onclick="this.parentElement.classList.toggle('open')">세부 기록 보기 ▾</button>
+        </div>
+
+        <!-- R2 — 10.24 KFC 2 vs RC FC 1 -->
+        <div class="match-card" id="match-r2a">
+          <div class="match-header">
+            <div class="match-meta"><span>2025.10.24</span><span>감일동 축구장</span></div>
+            <span class="match-round-badge">R2</span>
+            <div class="match-team home">KFC</div>
+            <div class="match-score">2 <span class="vs">:</span> 1</div>
+            <div class="match-team away">RC FC</div>
+          </div>
+          <div class="match-details">
+            <div class="match-details-inner">
+              <strong>쿼터별 스코어</strong><br>
+              1Q: 2 vs 0 · 2Q: 0 vs 0 · 3Q: 0 vs 1<br><br>
+              <strong>⚽ 득점</strong><br>
+              96번 이진호 (KFC)<br>
+              10번 임주완 (KFC)<br>
+              9번 이정호 (RC FC)<br><br>
+              <strong>🥅 도움</strong><br>
+              88번 박주석 (KFC)<br>
+              16번 박승환 (RC FC)<br><br>
+              <strong>🟨 경고</strong><br>
+              16번 박승환 (RC FC)
+            </div>
+            <div class="match-gallery">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FTsiWF%2FdJMb9OU2vck%2FAAAAAAAAAAAAAAAAAAAAADdbRXGBnSfaf4XQEt5ntdDo6d7N_A51yNq8qLNzf6UW%2Fimg.jpg" alt="R2 KFC vs RCFC 1" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbxhYlu%2FdJMb9XdhUoQ%2FAAAAAAAAAAAAAAAAAAAAAMW8ja8YgIGsa4SY9c79ufXQsdneopmPjlSXsKUN7Abn%2Fimg.jpg" alt="R2 KFC vs RCFC 2" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fz1nFm%2FdJMb9i2OZQE%2FAAAAAAAAAAAAAAAAAAAAAHCtKDUTg8q1N8CFxBVfe5gofX8FuCDPv0rEFLic8teX%2Fimg.jpg" alt="R2 KFC vs RCFC 3" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbE1F9g%2FdJMb9i2OZQC%2FAAAAAAAAAAAAAAAAAAAAADAK4i0ZmQBoHSTYBHht58BKLgqx9KSp7nfbKlNhnJS0%2Fimg.jpg" alt="R2 KFC vs RCFC 4" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FdcY98H%2FdJMb9XdhUoN%2FAAAAAAAAAAAAAAAAAAAAAC8cnPSdniU0L_6ALiB_dOym4J1GdNp0H2mykdQkaryz%2Fimg.jpg" alt="R2 KFC vs RCFC 5" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FzG87j%2FdJMb9XdhUoR%2FAAAAAAAAAAAAAAAAAAAAAAl4vVtq0-yGCChBgiRVYRNktbmLKo8ICox_2I6uFBLW%2Fimg.jpg" alt="R2 KFC vs RCFC 6" loading="lazy">
+            </div>
+            <a href="https://www.instagram.com/p/DQN3UXakZAj/" target="_blank" rel="noopener" class="highlight-link">📸 하이라이트 보기 →</a>
+          </div>
+          <button class="detail-toggle" onclick="this.parentElement.classList.toggle('open')">세부 기록 보기 ▾</button>
+        </div>
+
+        <!-- R1 — 09.25 RC FC 1 vs 사커캠프 3 -->
+        <div class="match-card" id="match-r1b">
+          <div class="match-header">
+            <div class="match-meta"><span>2025.09.25</span><span>불안산스타디움</span></div>
+            <span class="match-round-badge">R1</span>
+            <div class="match-team home">RC FC</div>
+            <div class="match-score">1 <span class="vs">:</span> 3</div>
+            <div class="match-team away">사커캠프</div>
+          </div>
+          <div class="match-details">
+            <div class="match-details-inner">
+              <strong>쿼터별 스코어</strong><br>
+              1Q: 0 vs 1 · 2Q: 0 vs 2 · 3Q: 1 vs 0<br><br>
+              <strong>⚽ 득점</strong><br>
+              RC FC: 16번 박승환 (3Q 2분)<br>
+              사커캠프: 14번 권민수 (1Q 20분, 2Q 12분), 자책골 (RC FC 박창준, 2Q 22분)<br><br>
+              <strong>🥅 도움</strong><br>
+              RC FC: 21번 서효진 (3Q 2분)<br>
+              사커캠프: 18번 정진수 (1Q 20분), 7번 권영건 (2Q 12분)
+            </div>
+            <div class="match-gallery">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FwScAn%2FbtsQPV8zHe1%2FAAAAAAAAAAAAAAAAAAAAANjTfEtKtMnamEM5aHP1XBDVkq7BgueC4pqtoOGirqd1%2Fimg.png" alt="R1 RCFC vs 사커캠프 1" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FXjjzB%2FbtsQRsqw22F%2FAAAAAAAAAAAAAAAAAAAAAOSfWNwTKgzrOQoUWbSuA5RIq8adfbZHIZuBCbZ_RJuq%2Fimg.jpg" alt="R1 RCFC vs 사커캠프 2" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbdCehV%2FbtsQPmk3On8%2FAAAAAAAAAAAAAAAAAAAAAEig0GU8V0wj1z4CtKh3IuhqeFN7305O0gGpZot-zHiP%2Fimg.jpg" alt="R1 RCFC vs 사커캠프 3" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbvvQCu%2FbtsQPgksIii%2FAAAAAAAAAAAAAAAAAAAAAGUb3xHBAbpfCKdsSns7AhBJYUjoB3vF1Oh8Z71sHkkJ%2Fimg.jpg" alt="R1 RCFC vs 사커캠프 4" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbVvkyh%2FbtsQQpH2Hyu%2FAAAAAAAAAAAAAAAAAAAAALdw-GZvSoUkfHeXqm79eJDgrBjbppxnqkyi4V9oYBKy%2Fimg.jpg" alt="R1 RCFC vs 사커캠프 5" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fbj8dKE%2FbtsQQzXXF7k%2FAAAAAAAAAAAAAAAAAAAAAOH68Da_dInGUMer6U_kjnGCtzzCtiTRYj5Ct4nJ9tXo%2Fimg.jpg" alt="R1 RCFC vs 사커캠프 6" loading="lazy">
+            </div>
+            <a href="https://www.instagram.com/p/DPDLp7REXgw/" target="_blank" rel="noopener" class="highlight-link">📸 하이라이트 보기 →</a>
+          </div>
+          <button class="detail-toggle" onclick="this.parentElement.classList.toggle('open')">세부 기록 보기 ▾</button>
+        </div>
+
+        <!-- R1 — 09.12 FC NFS 0 vs KFC 1 -->
+        <div class="match-card" id="match-r1a">
+          <div class="match-header">
+            <div class="match-meta"><span>2025.09.12</span><span>내곡리스타디움</span></div>
+            <span class="match-round-badge">R1</span>
+            <div class="match-team home">FC NFS</div>
+            <div class="match-score">0 <span class="vs">:</span> 1</div>
+            <div class="match-team away">KFC</div>
+          </div>
+          <div class="match-details">
+            <div class="match-details-inner">
+              <strong>쿼터별 스코어</strong><br>
+              1Q: 0 vs 0 · 2Q: 0 vs 1 · 3Q: 0 vs 0<br><br>
+              <strong>⚽ 득점</strong><br>
+              KFC 9번 김대범 (2Q 19분)<br><br>
+              <strong>🥅 도움</strong><br>
+              KFC 10번 임주완 (2Q 19분)<br><br>
+              <strong>🟨 경고</strong><br>
+              FC NFS 22번 이찬성 (3Q 9분)
+            </div>
+            <div class="match-gallery">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FctJtv8%2FbtsQNB32tdO%2FAAAAAAAAAAAAAAAAAAAAAMuYPBmLmj9_D7_0cU-O2-eH_eK13V8N4zE7IPXYEMJq%2Fimg.jpg" alt="R1 NFS vs KFC 1" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FlAbjO%2FbtsQORr1zl4%2FAAAAAAAAAAAAAAAAAAAAABSQZhxF3-uD_R4iv2FN-p8PMEgYoIuY6mhqSqSevoIX%2Fimg.jpg" alt="R1 NFS vs KFC 2" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FpAdFX%2FbtsQRvHwVhA%2FAAAAAAAAAAAAAAAAAAAAAANfS-87pF7ET2v8Q0skRhvJrUoDujuHLirjVMYaj17O%2Fimg.jpg" alt="R1 NFS vs KFC 3" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbsvyED%2FbtsQOj3rdWK%2FAAAAAAAAAAAAAAAAAAAAAGLKmT4c0WN__ABl27ATRHgWU3v_kJrEs6KcI9g1Zg5w%2Fimg.jpg" alt="R1 NFS vs KFC 4" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbN4xQu%2FbtsQQZaYefq%2FAAAAAAAAAAAAAAAAAAAAALmy-RH-Vl5A7QzOlCI0PHN7cfSKBqsiy9tiSrq2Ezjs%2Fimg.jpg" alt="R1 NFS vs KFC 5" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FcQVEeK%2FbtsQOkadxkk%2FAAAAAAAAAAAAAAAAAAAAAE9ialnpXOHemHQ-HGi2EfBSLKimmy9whTX02Wi1h_yP%2Fimg.jpg" alt="R1 NFS vs KFC 6" loading="lazy">
+            </div>
+            <a href="https://www.instagram.com/p/DOiASwoEdVe/" target="_blank" rel="noopener" class="highlight-link">📸 하이라이트 보기 →</a>
+          </div>
+          <button class="detail-toggle" onclick="this.parentElement.classList.toggle('open')">세부 기록 보기 ▾</button>
+        </div>
+
       </div>
-      <div class="match-team away">${m.away_team}</div>
     </div>
-  `).join('');
+  </section>
 
-  return `<div class="match-list">${cards}</div>`;
-}
+  <!-- ========== KNOCKOUT STAGE (R4 SEMI-FINAL + R5 FINAL) ========== -->
+  <section class="section knockout-section">
+    <div class="container">
+      <h2>KNOCKOUT STAGE</h2>
+      <div class="match-list">
 
-/* ── 탭 전환 ── */
-let currentData = { standings: '', results: '' };
-
-function switchTab(tabName) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
-  document.getElementById('mainContent').innerHTML = currentData[tabName];
-}
-
-/* ── 초기화 ── */
-function init() {
-  const { teams, matches } = TEST_DATA;
-  const standings = calcStandings(matches, teams);
-  currentData.standings = renderStandings(standings);
-  currentData.results   = renderResults(matches);
-
-  document.getElementById('mainContent').innerHTML = currentData.standings;
-
-  document.querySelectorAll('.tab').forEach(btn => {
-    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
-  });
-}
-
-/* ── 네비 & 스크롤 ── */
-window.addEventListener('scroll', () => {
-  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
-});
-document.getElementById('burger').addEventListener('click', () => {
-  document.getElementById('navLinks').classList.toggle('open');
-});
-
-/* 실행 */
-init();
-</script>
-
-</body>
-</html>
+        <!-- FINAL — 11.23 사커캠프 0 vs KFC 1 -->
+        <div class="match-card knockout-card" id="match-final">
+          <div class="match-header">
+            <div class="match-meta"><span>2025.11.23</span><span>감일동 축구장</span></div>
+            <span class="match-badge">FINAL</span>
+            <div class="match-team home">사커캠프</div>
+            <div class="match-score">0 <span class="vs">:</span> 1</div>
+            <div class="match-team away">KFC</div>
+          </div>
+          <div class="match-details">
+            <div class="match-details-inner">
+              <strong>쿼터별 스코어</strong><br>
+              1Q: 0 vs 0 · 2Q: 0 vs 1 · 3Q: 0 vs 0<br><br>
+              <strong>⚽ 득점</strong><br>
+              18번 전현민 (KFC, 2Q 14분)<br><br>
+              <strong>🟨 경고</strong><br>
+              91번 김무현 (사커캠프, 1Q 27분)<br>
+              이종건 (사커캠프, 2Q 1분)<br>
+              이태양 (KFC, 2Q 7분)
+            </div>
+            <div class="match-gallery">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FeG4Jnq%2FdJMcaiodrUz%2FAAAAAAAAAAAAAAAAAAAAAMTzq4IUEq89dxSopNpjmYC7BbvT_5migqNDb5GnuBj4%2Fimg.jpg" alt="Final 1" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FwpkUZ%2FdJMcacasYdD%2FAAAAAAAAAAAAAAAAAAAAABIiZPNeiNKcA_1UZ-1kpDwgdcyCRfT4JE3QfkttsLMJ%2Fimg.jpg" alt="Final 2" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FLe30H%2FdJMb99Lz3wv%2FAAAAAAAAAAAAAAAAAAAAAGfoFURxPpAckMxGx35vgklLoUSquvdKqnBDkGSf1Vd9%2Fimg.jpg" alt="Final 3" loading="lazy">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FpeXyP
